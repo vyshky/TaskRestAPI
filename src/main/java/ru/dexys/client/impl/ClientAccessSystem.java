@@ -2,6 +2,7 @@ package ru.dexys.client.impl;
 
 import io.restassured.RestAssured;
 import io.restassured.config.ConnectionConfig;
+import io.restassured.internal.assertion.Assertion;
 import org.hamcrest.Matcher;
 import ru.dexys.client.IAccessSystem;
 import ru.dexys.entity.EndPoint;
@@ -24,6 +25,7 @@ public class ClientAccessSystem implements IAccessSystem {
                 .prettyPeek()
                 .then()
                 .statusCode(200)
+                .and()
                 .extract()
                 .body()
                 .as(Room[].class);
@@ -37,6 +39,7 @@ public class ClientAccessSystem implements IAccessSystem {
                 .prettyPeek()
                 .then()
                 .statusCode(200)
+                .and()
                 .extract()
                 .body()
                 .as(User[].class);
@@ -49,6 +52,7 @@ public class ClientAccessSystem implements IAccessSystem {
                 .prettyPeek()
                 .then()
                 .statusCode(200)
+                .and()
                 .extract()
                 .body();
     }

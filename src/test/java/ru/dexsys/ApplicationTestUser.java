@@ -7,24 +7,33 @@ import ru.dexys.entity.Rooms;
 import ru.dexys.entity.Users;
 
 import java.io.IOException;
+import java.net.ConnectException;
 
 public class ApplicationTestUser {
     public static final ClientAccessSystem request = new ClientAccessSystem();
 
     @Test
-    public void checkRooms() throws IOException {
-        Rooms rooms = new Rooms(request.getRooms());
-        rooms.peek();
+    public void checkRooms() {
+        try {
+            Rooms rooms = new Rooms(request.getRooms());
+            rooms.peek();
+        } catch (IOException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     @Test
-    public void checkUsers() throws IOException {
+    public void checkUsers() {
         int startIndex = 4;
         int endIndex = 9;
-        Users users = new Users(request.getUsers());
-        users.peek();
-        users.peek(5);
-        users.peek(startIndex, endIndex);
+        try {
+            Users users = new Users(request.getUsers());
+            users.peek();
+            users.peek(5);
+            users.peek(startIndex, endIndex);
+        } catch (IOException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     @Test
@@ -37,8 +46,7 @@ public class ApplicationTestUser {
             request.getEntrance(keyId, roomId, entrance);
             request.getEntrance(keyId, roomId, exit);
         } catch (IOException e) {
-            System.out.println(e);
+            Assert.fail(e.getMessage());
         }
-
     }
 }
