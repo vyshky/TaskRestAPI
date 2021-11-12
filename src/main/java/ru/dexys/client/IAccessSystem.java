@@ -6,7 +6,7 @@ import ru.dexys.entity.User;
 import java.io.IOException;
 
 public interface IAccessSystem {
-    Room getRooms() throws IOException;
+    Room[] getRooms() throws IOException;
 
-    User getUsers() throws IOException;
+    User[] getUsers() throws IOException;
 }
