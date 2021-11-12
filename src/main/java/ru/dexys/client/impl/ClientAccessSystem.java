@@ -1,11 +1,17 @@
 package ru.dexys.client.impl;
 
 import io.restassured.RestAssured;
+import io.restassured.config.ConnectionConfig;
+import org.hamcrest.Matcher;
 import ru.dexys.client.IAccessSystem;
+import ru.dexys.entity.EndPoint;
+import ru.dexys.entity.Entrance;
 import ru.dexys.entity.Room;
 import ru.dexys.entity.User;
 
 import java.io.IOException;
+import java.lang.module.Configuration;
+import java.util.SortedMap;
 
 public class ClientAccessSystem implements IAccessSystem {
     private static final String BASE_URL = "http://localhost:8080";
@@ -14,7 +20,7 @@ public class ClientAccessSystem implements IAccessSystem {
     public Room[] getRooms() throws IOException {
         return RestAssured.given()
                 .baseUri(BASE_URL)
-                .request("GET", "/info/rooms")
+                .get(EndPoint.rooms)
                 .prettyPeek()
                 .then()
                 .statusCode(200)
@@ -27,7 +33,7 @@ public class ClientAccessSystem implements IAccessSystem {
     public User[] getUsers() throws IOException {
         return RestAssured.given()
                 .baseUri(BASE_URL)
-                .request("GET", "/info/users")
+                .get(EndPoint.users)
                 .prettyPeek()
                 .then()
                 .statusCode(200)
@@ -36,19 +42,15 @@ public class ClientAccessSystem implements IAccessSystem {
                 .as(User[].class);
     }
 
-    public int getEntrance(int id, int roomId, boolean entrance) {
-        String ENTRANCE = null;
-        if (entrance) {
-            ENTRANCE = "ENTRANCE";
-        } else {
-            ENTRANCE = "EXIT";
-        }
-        return RestAssured.given()
+    public void getEntrance(int keyId, int roomId, String entrance) throws IOException {
+        RestAssured.given()
                 .baseUri(BASE_URL)
-                .get("/check?entrance=" + ENTRANCE + "&keyId=" + id + "&roomId=" + roomId)
+                .get(EndPoint.checkEntrance, entrance, keyId, roomId)
                 .prettyPeek()
-                .thenReturn()
-                .statusCode();
+                .then()
+                .statusCode(200)
+                .extract()
+                .body();
     }
 
 }

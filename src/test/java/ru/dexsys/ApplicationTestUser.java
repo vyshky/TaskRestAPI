@@ -28,22 +28,17 @@ public class ApplicationTestUser {
     }
 
     @Test
-    public void checkEntrance() throws IOException {
-        int id = 2;
-        int roomId = 4;
-        boolean entrance = true;
-        if (roomId % id == 0) {
-
-            int statusCode = request.getEntrance(id, roomId, entrance);
-
-            if (statusCode == 403) {
-                Assert.fail("Вы не можете войти в комнату" + "{ id - " + id + " в room - " + roomId + "}" + "\n РАЗРАБОТЧИКУ СРОЧНО ИСПРАВИТЬ");
-            }
-            if (statusCode == 500) {
-                Assert.fail("Порочие ошибки");
-            }
-        } else {
-            Assert.fail("Вход запрещен! id - " + id + " и roomId - " + roomId);
+    public void checkEntrance() {
+        int keyId = 1;
+        int roomId = 1;
+        String entrance = "ENTRANCE";
+        String exit = "EXIT";
+        try {
+            request.getEntrance(keyId, roomId, entrance);
+            request.getEntrance(keyId, roomId, exit);
+        } catch (IOException e) {
+            System.out.println(e);
         }
+
     }
 }
