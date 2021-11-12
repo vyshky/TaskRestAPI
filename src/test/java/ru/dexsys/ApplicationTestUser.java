@@ -4,7 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.dexys.client.impl.ClientAccessSystem;
 import ru.dexys.entity.Room;
+import ru.dexys.entity.Rooms;
 import ru.dexys.entity.User;
+import ru.dexys.entity.Users;
 
 import java.io.IOException;
 
@@ -13,15 +15,19 @@ public class ApplicationTestUser {
 
     @Test
     public void checkRooms() throws IOException {
-        Room rooms = request.getRooms();
+        Rooms rooms = new Rooms(request.getRooms());
+        rooms.peek();
     }
 
     @Test
     public void checkUsers() throws IOException {
         int startIndex = 4;
         int endIndex = 9;
-        User user = request.getUsers();
-        user.peekUsers(startIndex, endIndex);
+        Users users = new Users(request.getUsers());
+        users.peek();
+        users.peek(5);
+        users.peek(startIndex, endIndex);
+
     }
 
     @Test
