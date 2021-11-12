@@ -25,7 +25,6 @@ public class ApplicationTestUser {
         users.peek();
         users.peek(5);
         users.peek(startIndex, endIndex);
-
     }
 
     @Test
