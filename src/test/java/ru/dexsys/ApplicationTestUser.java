@@ -3,9 +3,7 @@ package ru.dexsys;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.dexys.client.impl.ClientAccessSystem;
-import ru.dexys.entity.Room;
 import ru.dexys.entity.Rooms;
-import ru.dexys.entity.User;
 import ru.dexys.entity.Users;
 
 import java.io.IOException;
