@@ -7,13 +7,12 @@ import ru.dexys.entity.Rooms;
 import ru.dexys.entity.Users;
 
 import java.io.IOException;
-import java.net.ConnectException;
 
 public class ApplicationTestUser {
     public static final ClientAccessSystem request = new ClientAccessSystem();
 
     @Test
-    public void checkRooms() {
+    public void getRooms() {
         try {
             Rooms rooms = new Rooms(request.getRooms());
             rooms.peek();
@@ -23,7 +22,7 @@ public class ApplicationTestUser {
     }
 
     @Test
-    public void checkUsers() {
+    public void getUsers() {
         int startIndex = 4;
         int endIndex = 9;
         try {

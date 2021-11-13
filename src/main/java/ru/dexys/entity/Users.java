@@ -7,6 +7,10 @@ public class Users {
         this.users = users;
     }
 
+    public int count() {
+        return users.length;
+    }
+
     public void peek() {
         peek(0, users.length);
     }
@@ -16,6 +20,7 @@ public class Users {
     }
 
     public void peek(int start, int end) {
+        if (end > users.length) end = users.length;
 
         for (int i = 0; i < end; ++i) {
             if ((int) users[i].getId() >= start) {
