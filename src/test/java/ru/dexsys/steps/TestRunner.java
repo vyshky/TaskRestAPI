@@ -1,7 +1,5 @@
 package ru.dexsys.steps;
 
-
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,6 +10,7 @@ import org.junit.runner.RunWith;
 import ru.dexys.client.impl.ClientAccessSystem;
 import ru.dexys.entity.Rooms;
 import ru.dexys.entity.Users;
+import ru.dexys.util.PaintTextUtil;
 
 import java.io.IOException;
 
@@ -48,18 +47,20 @@ public class TestRunner {
     }
 
 
-    @Given("^I check to enter the room. userId = (\\d+) maxRoom = (\\d+)$")
+    @When("^I check to enter the room. userId = (\\d+) maxRoom = (\\d+)$")
     public void checkEntrance(int keyId, int maxRoom) {
         String entrance = "ENTRANCE";
+        String error = "";
         try {
-            for (int y = 1; y <= maxRoom; ++y) {
-                if (y % keyId == 0) {
-                    request.getEntrance(keyId, y, entrance);
-                    checkExit(keyId, y);
+            for (int room = 1; room <= maxRoom; ++room) {
+                if (room % keyId == 0) {
+                    error = "keyId - " + keyId + "\t" + "roomId - " + room + " no privileges" + "\n";
+                    request.getEntrance(keyId, room, entrance);
+                    checkExit(keyId, room);
                 }
             }
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
+        } catch (AssertionError | IOException e) {// TODO :: Поменять цвет ошибки
+            Assert.fail(PaintTextUtil.cyan(error + e.getMessage()));
         }
     }
 
@@ -68,8 +69,8 @@ public class TestRunner {
         String exit = "EXIT";
         try {
             request.getEntrance(keyId, roomId, exit);
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
+        } catch (AssertionError | IOException e) {
+            Assert.fail(PaintTextUtil.cyan(e.getMessage()));
         }
     }
 
