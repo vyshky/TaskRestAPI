@@ -1,11 +1,13 @@
 Feature: Test Rest-Api
 
-  Scenario: I get get user and rooms
+  Scenario: I get get rooms
     Given I ask you to give me back the room numbers
+  Scenario: I get get users
     Given I ask you to give me back the users. start = 1 end = 5
 
+
   Scenario Outline: I check the privileges of all users
-    Given I check to enter the room. userId = <id> maxRoom = <room>
+    When I check to enter the room. userId = <id> maxRoom = <room>
     Examples: I enter the rooms
       | id | room |
       | 1  | 5    |
