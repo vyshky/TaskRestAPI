@@ -1,8 +1,8 @@
 package ru.dexys.entity;
 
 public enum Go {
-    in("ENTRANCE"),
-    out("EXIT");
+    IN("ENTRANCE"),
+    OUT("EXIT");
 
     private String title;
 
